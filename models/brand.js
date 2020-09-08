@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const BrandSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     dateCreate: {
         type: Date,

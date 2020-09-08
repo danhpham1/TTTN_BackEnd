@@ -13,7 +13,9 @@ route.get("/index", adminController.getIndex);
 route.get("/brand", brandController.getIndex);
 route.get("/brand/create", brandController.getIndexcreate);
 route.post("/brand/create", uploadBrand.single('logo-brand'), brandController.processCreateBrand);
-route.get("/brand/edit/:id", brandController.getIndexEdit)
+route.get("/brand/edit/:id", brandController.getIndexEdit);
+route.post("/brand/edit/:id", brandController.proessEditBrand);
+route.get("/brand/delete/:id", brandController.deleteBrand);
 
 
 module.exports = route;

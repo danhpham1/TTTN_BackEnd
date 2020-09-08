@@ -5,11 +5,12 @@
             <form action="/admin/brand/create" class="forms-sample" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="exampleInputName1">Title</label>
-                    <input name="title" id="title" type="text" class="form-control" placeholder="Title">
+                    <input required minlength="5" name="title" id="title" type="text" class="form-control"
+                        placeholder="Title">
                 </div>
                 <div class="form-group">
                     <label class="d-block">Logo upload</label>
-                    <input type="file" name="logo-brand">
+                    <input required type="file" name="logo-brand">
                 </div>
                 <!-- <div class="form-check form-check-flat form-check-primary">
                     <label class="form-check-label">
