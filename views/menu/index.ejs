@@ -1,0 +1,53 @@
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title d-inline">Menu</h4>
+            <a href="/admin/menu/create" class="btn btn-gradient-success btn-fw float-right">Add Menu</a>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:5%"> Id </th>
+                        <th style="width:30%"> Title </th>
+                        <th style="width:20%"> Sub Menu </th>
+                        <th style="width:10%"> Date Create </th>
+                        <th style="width:10%"> Creator </th>
+                        <th style="width:5%"> IsHide </th>
+                        <th style="width:20%"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% menu.forEach((el,index) => { %>
+                    <tr>
+                        <td><%= index + 1%>
+                        </td>
+                        <td><%= el.title %></td>
+                        <td>
+                            <ul>
+                                <% el.subMenu.forEach((el) => { %>
+                                <li><%= el %> </li>
+                                <% }); %>
+                            </ul>
+                        </td>
+                        <td> <%= el.dateCreate.toDateString() %> </td>
+                        <td> <%= el.creator %> </td>
+                        <td> <%= el.isHide %> </td>
+                        <td>
+                            <a href="/admin/menu/edit/<%= el._id %>" class="btn btn-gradient-info btn-fw">Edit</a>
+                            <a href="/admin/menu/delete/<%= el._id %>"
+                                class="btn btn-gradient-danger  btn-fw">Delete</a>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <!-- <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul> -->
+    </div>
+
+</div>
