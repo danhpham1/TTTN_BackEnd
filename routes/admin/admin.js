@@ -8,6 +8,8 @@ const adminController = require("../../controllers/admin");
 const brandController = require("../../controllers/brand");
 const menuController = require("../../controllers/menu");
 const sliderController = require("../../controllers/slider");
+const roleController = require("../../controllers/role");
+const userController = require("../../controllers/user");
 
 route.get("/index", adminController.getIndex);
 
@@ -33,5 +35,20 @@ route.get("/slider/create", sliderController.getIndexCreateSlider);
 route.post("/slider/create", uploadBrand.uploadSlider.single('logo-slider'), sliderController.processCreateSlider);
 route.get("/slider/delete/:id", sliderController.deleteSlider);
 
+//role route
+route.get("/role", roleController.getIndex);
+route.get("/role/create", roleController.getIndexCreate);
+route.post("/role/create", roleController.processCreate);
+route.get("/role/edit/:id", roleController.getIndexEdit);
+route.post("/role/edit/:id", roleController.processEdit);
+route.get("/role/delete/:id", roleController.processDelete);
+
+//user route
+route.get("/user", userController.getIndex);
+route.get("/user/create", userController.getIndexCreate);
+route.post("/user/create", userController.processCreate);
+route.get("/user/edit/:id", userController.getIndexEdit);
+route.post("/user/edit/:id", userController.processEdit);
+route.get("/user/delete/:id", userController.processDelete);
 
 module.exports = route;
