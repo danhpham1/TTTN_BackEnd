@@ -18,7 +18,8 @@ module.exports.getIndex = async (req, res) => {
             main: main,
             users: users.slice(start, end),
             totalPage: totalPage,
-            currentPage: currentPage
+            currentPage: currentPage,
+            user: req.session.userInfo
         })
     } catch (err) {
         console.log(err)
@@ -32,7 +33,8 @@ module.exports.getIndexCreate = async (req, res) => {
         let roles = await RoleModel.find();
         res.render("index", {
             main: main,
-            roles: roles
+            roles: roles,
+            user: req.session.userInfo
         })
     } catch (err) {
         console.log(err);
@@ -50,7 +52,8 @@ module.exports.processCreate = async (req, res) => {
             email: (req.body.email) ? req.body.email : '',
             phone: (req.body.phone) ? req.body.phone : '',
             address: (req.body.address) ? req.body.address : '',
-            role: req.body.role
+            role: req.body.role,
+            creator: req.session.userInfo.name
         });
         await user.save();
         res.redirect("/admin/user");
@@ -68,7 +71,8 @@ module.exports.getIndexEdit = async (req, res) => {
         res.render("index", {
             main: main,
             user: user,
-            roles: roles
+            roles: roles,
+            user: req.session.userInfo
         })
     } catch (err) {
         console.log(err);
@@ -85,7 +89,8 @@ module.exports.processEdit = async (req, res) => {
                     email: req.body.email,
                     phone: req.body.phone,
                     address: req.body.address,
-                    role: req.body.role
+                    role: req.body.role,
+                    creator: req.session.userInfo.name
                 }
             },
             { new: true }

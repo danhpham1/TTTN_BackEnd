@@ -35,10 +35,12 @@
                 <span class="menu-title">Role</span>
             </a>
         </li>
+        <% if(user.role == "Quản Trị Viên"){ %>
         <li class="nav-item">
             <a class="nav-link" href="/admin/user">
                 <span class="menu-title">User</span>
             </a>
         </li>
+        <% } %>
     </ul>
 </nav>

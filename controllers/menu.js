@@ -9,7 +9,8 @@ module.exports.getIndexMenu = async (req, res) => {
     let menu = await MenuModel.find();
     res.render('index', {
         main: main,
-        menu: menu
+        menu: menu,
+        user: req.session.userInfo
     })
 }
 
@@ -20,7 +21,8 @@ module.exports.getIndexCreateMenu = async (req, res) => {
         let brandList = await BrandModel.find();
         res.render('index', {
             main: main,
-            brandList: brandList
+            brandList: brandList,
+            user: req.session.userInfo
         })
     } catch (err) {
         console.log(err);
@@ -32,7 +34,8 @@ module.exports.processCreateMenu = async (req, res) => {
         let menu = new MenuModel({
             title: req.body.title,
             subMenu: req.body.subMenu,
-            isHide: (req.body["isHide"]) ? true : false
+            isHide: (req.body["isHide"]) ? true : false,
+            creator: req.session.userInfo.name
         })
         await menu.save();
         res.redirect("/admin/menu");
@@ -50,7 +53,8 @@ module.exports.getIndexEditMenu = async (req, res) => {
         res.render("index", {
             main: main,
             menu: menu[0],
-            brandList: brandList
+            brandList: brandList,
+            user: req.session.userInfo
         })
     } catch (err) {
         console.log(err);
@@ -61,7 +65,7 @@ module.exports.processEditMenu = async (req, res) => {
     try {
         let subMenu = req.body.subMenu;
         let isHide = (req.body["isHide"]) ? true : false;
-        await MenuModel.findByIdAndUpdate(req.params.id, { $set: { title: req.body.title, subMenu: subMenu, isHide: isHide } }, { new: true });
+        await MenuModel.findByIdAndUpdate(req.params.id, { $set: { title: req.body.title, subMenu: subMenu, isHide: isHide, creator: req.session.userInfo.name } }, { new: true });
         res.redirect("/admin/menu");
     } catch (err) {
         console.log(err)

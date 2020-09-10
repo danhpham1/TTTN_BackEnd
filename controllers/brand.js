@@ -3,12 +3,14 @@ const path = require('path');
 const fs = require("fs");
 const BrandModel = require("../models/brand");
 
+
 module.exports.getIndex = async (req, res) => {
     let main = "brand/index";
     let brandList = await BrandModel.find();
     res.render("index", {
         main: main,
-        brandList: brandList
+        brandList: brandList,
+        user: req.session.userInfo
     })
 }
 
@@ -17,7 +19,7 @@ module.exports.getIndexcreate = async (req, res) => {
     let main = "brand/create";
     res.render("index", {
         main: main,
-
+        user: req.session.userInfo
     })
 }
 
@@ -25,7 +27,8 @@ module.exports.processCreateBrand = async (req, res) => {
     // console.log(req.body, req.file);
     let brand = new BrandModel({
         title: req.body.title,
-        logo: req.file.filename
+        logo: req.file.filename,
+        creator: req.session.userInfo.name
     })
     // console.log(brand);
     try {
@@ -44,7 +47,9 @@ module.exports.getIndexEdit = async (req, res) => {
         let brand = await BrandModel.findById(req.params.id);
         res.render('index', {
             main: main,
-            brand: brand
+            brand: brand,
+            user: req.session.userInfo,
+
         })
 
     } catch (error) {
@@ -55,7 +60,7 @@ module.exports.getIndexEdit = async (req, res) => {
 module.exports.proessEditBrand = async (req, res) => {
     try {
         let isHide = (req.body.isHide == 'on') ? true : false;
-        await BrandModel.findByIdAndUpdate(req.params.id, { $set: { title: req.body.title, isHide: isHide } }, { new: true });
+        await BrandModel.findByIdAndUpdate(req.params.id, { $set: { title: req.body.title, isHide: isHide, creator: req.session.userInfo.name } }, { new: true });
         res.redirect('/admin/brand');
     } catch (error) {
         console.log(err);

@@ -9,7 +9,8 @@ module.exports.getIndex = async (req, res) => {
     let sliderList = await SliderModel.find();
     res.render("index", {
         main: main,
-        sliderList: sliderList
+        sliderList: sliderList,
+        user: req.session.userInfo
     })
 }
 
@@ -18,6 +19,7 @@ module.exports.getIndexCreateSlider = (req, res) => {
     let main = 'slider/create';
     res.render("index", {
         main: main,
+        user: req.session.userInfo
     })
 }
 
@@ -26,7 +28,8 @@ module.exports.processCreateSlider = async (req, res) => {
         let nameFile = req.file.filename;
         console.log(req.file.filename);
         let slider = new SliderModel({
-            logo: nameFile
+            logo: nameFile,
+            creator: req.session.userInfo.name
         });
         await slider.save();
         res.redirect("/admin/slider");
