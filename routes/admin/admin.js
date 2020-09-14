@@ -10,6 +10,7 @@ const menuController = require("../../controllers/menu");
 const sliderController = require("../../controllers/slider");
 const roleController = require("../../controllers/role");
 const userController = require("../../controllers/user");
+const productController = require("../../controllers/product");
 
 route.get("/index", adminController.getIndex);
 
@@ -50,5 +51,14 @@ route.post("/user/create", userController.processCreate);
 route.get("/user/edit/:id", userController.getIndexEdit);
 route.post("/user/edit/:id", userController.processEdit);
 route.get("/user/delete/:id", userController.processDelete);
+
+//product route
+route.get("/product", productController.getIndex);
+route.get("/product/create", productController.getIndexCreate);
+route.post("/product/create", uploadBrand.uploadProduct.single("logo-product"), productController.processCreate);
+route.get("/product/edit/:id", productController.getIndexEdit);
+route.post("/product/edit/:id", productController.processEdit);
+route.get("/product/delete/:id", productController.processDelete);
+
 
 module.exports = route;

@@ -1,0 +1,113 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Brand Form</h4>
+            <form action="/admin/product/edit/<%=product._id%>" class="forms-sample" method="POST">
+                <div class="form-group">
+                    <label for="exampleInputName1">Name</label>
+                    <input required minlength="5" name="name" id="name" type="text" class="form-control"
+                        placeholder="Name" value="<%= product.name %>">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName1">Title</label>
+                    <input required minlength="5" name="title" id="title" type="text" class="form-control"
+                        placeholder="Title" value="<%= product.title %>">
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Brand List</label>
+                    <div class="col-sm-9">
+                        <select name="brand" id="brand" required class="form-control">
+                            <% brandList.forEach(element => { %>
+                            <option <% if(element.title == product.brand){ %> <%= 'selected' %> <% } %>
+                                value=<%= element.title %>><%= element.title %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Type List</label>
+                    <div class="col-sm-9">
+                        <select name="type" id="type" required class="form-control">
+                            <option <% if(product.type == "nam"){ %> <%= 'selected' %> <% } %> value="nam">Nam</option>
+                            <option <% if(product.type == "nu"){ %> <%= 'selected' %> <% } %> value="nu">Nữ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName1">Price</label>
+                    <input value=<%= product.price %> required name="price" id="price" type="number"
+                        class="form-control" placeholder="Price">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName1">Guarantee</label>
+                    <input value=<%= product.guarantee %> required name="guarantee" id="guarantee" type="number"
+                        class="form-control" placeholder="Guarantee">
+                </div>
+                <div class="form-group row">
+                    <div class="col-12">
+                        <h3>Information Describe</h3>
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputName1">Loại Kính</label>
+                        <input value="<%= product.describe.loaikinh %>" required name="loaikinh" id="loaikinh"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputName1">Máy</label>
+                        <input value="<%= product.describe.may %>" required name="may" id="may" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputName1">Chất Liệu Dây</label>
+                        <input value="<%= product.describe.chatlieuday %>" required name="chatlieuday" id="chatlieuday"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputName1">Màu Mặt Số</label>
+                        <input value="<%= product.describe.maumatso %>" required name="maumatso" id="maumatso"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputName1">Đường Kính</label>
+                        <input value="<%= product.describe.duongkinh %>" name="duongkinh" id="duongkinh" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputName1">Độ Dày</label>
+                        <input value="<%= product.describe.doday %>" name="doday" id="doday" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputName1">Màu Dây</label>
+                        <input value="<%= product.describe.mauday %>" name="mauday" id="mauday" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputName1">Niềng</label>
+                        <input value="<%= product.describe.nieng %>" name="nieng" id="nieng" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputName1">Chịu Nước</label>
+                        <input value="<%= product.describe.chiunuoc %>" name="chiunuoc" id="chiunuoc" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputName1">Chức Năng</label>
+                        <input value="<%= product.describe.chucnang %>" name="chucnang" id="chucnang" type="text"
+                            class="form-control">
+                    </div>
+                </div>
+                <textarea name="warrantypolicy" id="warrantyPolicy" cols="100"
+                    rows="10"><%- product.warrantyPolicy%></textarea>
+                <div class="form-check form-check-flat form-check-primary">
+                    <label class="form-check-label">
+                        <input <% if(product.isHide){ %> <%= 'checked' %> <% } %> type="checkbox" name="isHide"
+                            class="form-check-input"> Is Hide <i class="input-helper"></i></label>
+                </div>
+                <button type="submit" class="btn btn-gradient-primary mr-2">Submit</button>
+                <a href="/admin/product" class="btn btn-light">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
