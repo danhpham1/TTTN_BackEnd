@@ -8,6 +8,7 @@ const expressSession = require("express-session");
 const adminRoutes = require("./routes/admin/admin");
 const loginRoute = require("./routes/admin/login");
 const logoutRoute = require("./routes/admin/logout");
+const apiRoute = require("./routes/api/api");
 
 //middleware
 const loginMiddleware = require("./middlewares/login");
@@ -34,5 +35,6 @@ app.use(
 app.use("/login", loginRoute);
 app.use("/logout", logoutRoute);
 app.use("/admin", loginMiddleware.checkSessionLogin, adminRoutes);
+app.use("/api/v1", apiRoute);
 
 app.listen(3000, () => { console.log('server start') });
