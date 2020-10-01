@@ -6,11 +6,19 @@ const fs = require("fs");
 
 module.exports.getIndex = async (req, res) => {
     let main = "product/index";
-    let productList = await ProductModel.find();
+    let productList = await (await ProductModel.find()).reverse();
+    let perpage = 5;
+    let totalPage = Math.ceil(productList.length / perpage);
+    console.log(totalPage);
+    let currentPage = req.query.page || 1;
+    let start = (currentPage - 1) * perpage;
+    let end = (currentPage) * perpage;
     res.render("index", {
         main: main,
         user: req.session.userInfo,
-        productList: productList
+        productList: productList.slice(start, end),
+        totalPage: totalPage,
+        currentPage: currentPage,
     })
 };
 

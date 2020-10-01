@@ -13,7 +13,7 @@
                         <th style="width:10%"> Date Create </th>
                         <th style="width:20%"> Creator </th>
                         <th style="width:5%"> IsHide </th>
-                        <th style="width:20%"> </th>
+                        <th style="width:10%"> </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,22 +27,27 @@
                         <td><%= el.creator %></td>
                         <td><%= el.isHide %></td>
                         <td>
-                            <a href="/admin/product/edit/<%= el._id %>" class="btn btn-gradient-info btn-fw">Edit</a>
+                            <a href="/admin/product/edit/<%= el._id %>" class="btn btn-gradient-info btn-md">Edit</a>
                             <a href="/admin/product/delete/<%= el._id %>?fileName=<%= el.logo %>"
-                                class="btn btn-gradient-danger  btn-fw">Delete</a>
+                                class="btn btn-gradient-danger btn-md">Delete</a>
                         </td>
                     </tr>
                     <% }); %>
                 </tbody>
             </table>
         </div>
-        <!-- <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul> -->
+        <ul class="pagination justify-content-center">
+            <% if(currentPage > 1){ %>
+            <li class="page-item"><a class="page-link" href="/admin/product?page=<%= +currentPage - 1 %>">Previous</a>
+            </li>
+            <% } %>
+            <% for(let i=1; i <= totalPage; i++){ %>
+            <li class="page-item"><a class="page-link" href="/admin/product?page=<%= i %>"><%= i %> </a></li>
+            <% } %>
+            <% if(currentPage < totalPage){ %>
+            <li class="page-item"><a class="page-link" href="/admin/product?page=<%= +currentPage + 1 %>">Next</a></li>
+            <% } %>
+        </ul>
     </div>
 
 </div>

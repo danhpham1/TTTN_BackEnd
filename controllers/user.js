@@ -10,7 +10,7 @@ module.exports.getIndex = async (req, res) => {
         let main = 'user/index';
         let users = await UserModel.find();
         let perpage = 5;
-        let totalPage = Math.floor(users.length / perpage);
+        let totalPage = Math.ceil(users.length / perpage);
         let currentPage = req.query.page || 1;
         let start = (currentPage - 1) * perpage;
         let end = (currentPage) * perpage;
