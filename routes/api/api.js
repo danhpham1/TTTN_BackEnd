@@ -6,6 +6,7 @@ const brandApiController = require('../../controllers/api/brand');
 const menuApiController = require("../../controllers/api/menu");
 const sliderApiController = require('../../controllers/api/slider');
 const userApiController = require('../../controllers/api/user');
+const productApiController = require('../../controllers/api/product');
 
 //brand
 route.get('/brand', brandApiController.getAllBrand);
@@ -18,6 +19,9 @@ route.get('/slider', sliderApiController.getSlider);
 
 //user
 route.post('/auth', userApiController.login);
+
+//product
+route.get('/product', productApiController.processGetProduct);
 
 
 module.exports = route;

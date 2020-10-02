@@ -10,6 +10,31 @@ const loginRoute = require("./routes/admin/login");
 const logoutRoute = require("./routes/admin/logout");
 const apiRoute = require("./routes/api/api");
 
+//CROS
+app.use(function (req, res, next) {
+    // Website you wish to allow to connect
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
+    // Request methods you wish to allow
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+    );
+
+    // Request headers you wish to allow
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "X-Requested-With,content-type"
+    );
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader("Access-Control-Allow-Credentials", true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
 //middleware
 const loginMiddleware = require("./middlewares/login");
 //connect mongodb
@@ -37,4 +62,4 @@ app.use("/logout", logoutRoute);
 app.use("/admin", loginMiddleware.checkSessionLogin, adminRoutes);
 app.use("/api/v1", apiRoute);
 
-app.listen(3000, () => { console.log('server start') });
+app.listen(process.env.PORT || 3000, () => { console.log('server start') });
