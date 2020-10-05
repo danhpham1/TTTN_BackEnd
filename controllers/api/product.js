@@ -19,49 +19,44 @@ module.exports.processGetProduct = async (req, res) => {
                 data: productList
             })
         } else {
-            // console.log((req.query.type === undefined));
-            if (req.query.search && (req.query.type == undefined)) {
-                // console.log(req.query.search);
-                let searchQuery = req.query.search;
-                let productListSearch = await ProductModel.find(
-                    { title: { $regex: searchQuery, $options: 'i' } }
-                )
-                res.status(200).json({
-                    success: true,
-                    data: productListSearch
-                })
-            } else if (req.query.search || req.query.type) {
-                if (req.query.search && req.query.type) {
-                    let searchQuery = req.query.search;
-                    let typeQuery = req.query.type;
-                    let productListSearchAndType = await ProductModel.find(
-                        {
-                            title: { $regex: searchQuery, $options: 'i' },
-                            type: { $regex: typeQuery, $options: 'i' }
-                        }
-                    )
+            let query = {};
+            if (req.query.brand) {
+                let brandQuery = { title: { $regex: req.query.brand, $options: 'i' } };
+                query = { ...brandQuery };
+            }
+            if (req.query.type) {
+                let typeQuery = { type: { $regex: req.query.type, $options: 'i' } };
+                query = { ...query, ...typeQuery };
+            }
+            if (req.query.size) {
+                if (!isEmpty(query)) {
+                    let productList = await ProductModel.aggregate([
+                        { $match: query },
+                        { $limit: +req.query.size }
+                    ]);
                     res.status(200).json({
                         success: true,
-                        data: productListSearchAndType
+                        data: productList
                     })
                 } else {
-                    let typeQuery = req.query.type;
-                    let productListType = await ProductModel.find(
-                        {
-                            type: { $regex: typeQuery, $options: 'i' }
-                        }
-                    )
+                    let productList = await ProductModel.aggregate([
+                        { $limit: +req.query.size }
+                    ])
                     res.status(200).json({
                         success: true,
-                        data: productListType
+                        data: productList
                     })
                 }
             } else {
-                let productList = await ProductModel.find();
-                res.status(200).json({
-                    success: true,
-                    data: productList
-                })
+                if (!isEmpty(query)) {
+                    let productList = await ProductModel.aggregate([
+                        { $match: query },
+                    ]);
+                    res.status(200).json({
+                        success: true,
+                        data: productList
+                    })
+                }
             }
         }
     } catch (error) {
