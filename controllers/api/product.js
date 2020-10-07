@@ -90,3 +90,39 @@ module.exports.processGetProduct = async (req, res) => {
         )
     }
 }
+
+
+//get product random
+module.exports.processGetProductRandom = async (req, res) => {
+    // console.log(req.query.size);
+    try {
+        if (!isEmpty(req.query)) {
+            let size = req.query.size;
+            let productList = await ProductModel.aggregate([
+                { $sample: { size: +size } }
+            ])
+            res.status(200).json(
+                {
+                    success: true,
+                    data: productList
+                }
+            )
+        } else {
+            res.status(503).json(
+                {
+                    success: false,
+                    message: 'Get product failed',
+                    error: error
+                }
+            )
+        }
+    } catch (error) {
+        res.status(503).json(
+            {
+                success: false,
+                message: 'Get product failed',
+                error: error
+            }
+        )
+    }
+}
