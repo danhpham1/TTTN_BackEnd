@@ -22,6 +22,7 @@ route.post('/auth', userApiController.login);
 
 //product
 route.get('/product', productApiController.processGetProduct);
+route.get('/product/:id', productApiController.processGetProductDetail);
 
 
 module.exports = route;

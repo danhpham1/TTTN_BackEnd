@@ -9,6 +9,27 @@ function isEmpty(obj) {
     return true;
 }
 
+//get product detail
+module.exports.processGetProductDetail = async (req, res) => {
+    try {
+        let idProduct = req.params.id;
+        let product = await ProductModel.findById(idProduct);
+        res.status(200).json(
+            {
+                success: true,
+                data: product
+            }
+        )
+    } catch (error) {
+        res.status(503).json(
+            {
+                success: false,
+                message: 'Get product failed',
+                error: error
+            }
+        )
+    }
+}
 
 module.exports.processGetProduct = async (req, res) => {
     try {
