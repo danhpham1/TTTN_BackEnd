@@ -25,5 +25,8 @@ route.get('/product', productApiController.processGetProduct);
 route.get('/product/getrandom', productApiController.processGetProductRandom);
 route.get('/product/:id', productApiController.processGetProductDetail);
 
+//user
+route.post('/user/register', userApiController.processCreateUser);
+route.post('/user/login', userApiController.login);
 
 module.exports = route;
