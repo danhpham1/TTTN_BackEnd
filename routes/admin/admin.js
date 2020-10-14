@@ -11,6 +11,7 @@ const sliderController = require("../../controllers/slider");
 const roleController = require("../../controllers/role");
 const userController = require("../../controllers/user");
 const productController = require("../../controllers/product");
+const orderController = require("../../controllers/order");
 
 route.get("/index", adminController.getIndex);
 
@@ -59,6 +60,11 @@ route.post("/product/create", uploadBrand.uploadProduct.single("logo-product"), 
 route.get("/product/edit/:id", productController.getIndexEdit);
 route.post("/product/edit/:id", productController.processEdit);
 route.get("/product/delete/:id", productController.processDelete);
+
+//order route
+route.get("/order", orderController.getIndex);
+route.get("/order/edit/:id", orderController.getIndexEdit);
+route.post("/order/edit/:id", orderController.proccesEditOrder);
 
 
 module.exports = route;

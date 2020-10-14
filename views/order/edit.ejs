@@ -1,0 +1,34 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Order Form</h4>
+            <form action="/admin/order/edit/<%= order._id %>" class="forms-sample" method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input required minlength="5" value="<%= order.name %>" name="name" id="name" type="text"
+                        class="form-control" placeholder="Title">
+                </div>
+                <div class="form-group">
+                    <label for="name">Address</label>
+                    <input required minlength="5" value="<%= order.address %>" name="address" id="address" type="text"
+                        class="form-control" placeholder="Title">
+                </div>
+                <div class="form-group">
+                    <label for="name">Phone</label>
+                    <input required minlength="5" value="<%= order.phone %>" name="phone" id="phone" type="text"
+                        class="form-control" placeholder="Title">
+                </div>
+                <div class="form-group">
+                    <label for="name">Status</label>
+                    <select class="form-control" id="state" name="state">
+                        <option value="0" <% if(order.state == 0){ %> <%= 'selected' %> <% } %>>ON HOLD</option>
+                        <option value="1" <% if(order.state == 1){ %> <%= 'selected' %> <% } %>>PROGRESS</option>
+                        <option value="2" <% if(order.state == 2){ %> <%= 'selected' %> <% } %>>DONE</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-gradient-primary mr-2">Submit</button>
+                <a href="/admin/order" class="btn btn-light">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
