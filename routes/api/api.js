@@ -12,6 +12,7 @@ const sliderApiController = require('../../controllers/api/slider');
 const userApiController = require('../../controllers/api/user');
 const productApiController = require('../../controllers/api/product');
 const orderApiController = require('../../controllers/api/order');
+const searchApiController = require("../../controllers/api/search");
 
 //brand
 route.get('/brand', brandApiController.getAllBrand);
@@ -31,10 +32,15 @@ route.get('/product/getrandom', productApiController.processGetProductRandom);
 route.get('/product/:id', productApiController.processGetProductDetail);
 
 //order
+route.get('/order/:username', checkTokenMiddleware.checkToken, orderApiController.getOrderWithIdUser);
+route.get('/order/detail/:id', checkTokenMiddleware.checkToken, orderApiController.getOrderDetail);
 route.post('/order', checkTokenMiddleware.checkToken, orderApiController.processPostOrder);
 
 //user
 route.post('/user/register', userApiController.processCreateUser);
 route.post('/user/login', userApiController.login);
+
+//search
+route.get('/search', searchApiController.processSearchProduct);
 
 module.exports = route;
