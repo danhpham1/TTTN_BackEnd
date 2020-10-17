@@ -1,5 +1,5 @@
 CKEDITOR.replace('warrantypolicy', {
     // removePlugins: 'easyimage',
-    filebrowserBrowseUrl: '/browser',
-    filebrowserUploadUrl: '/uploader'
+    filebrowserBrowseUrl: '/admin/browser',
+    filebrowserUploadUrl: '/admin/uploader'
 });

@@ -1,7 +1,7 @@
 const express = require("express");
 const route = express.Router();
 
-const uploadBrand = require('../../configs/multer');
+const upload = require('../../configs/multer');
 
 //require controller
 const adminController = require("../../controllers/admin");
@@ -12,13 +12,14 @@ const roleController = require("../../controllers/role");
 const userController = require("../../controllers/user");
 const productController = require("../../controllers/product");
 const orderController = require("../../controllers/order");
+const ckeditorController = require("../../controllers/ckeditor");
 
 route.get("/index", adminController.getIndex);
 
 //brand route
 route.get("/brand", brandController.getIndex);
 route.get("/brand/create", brandController.getIndexcreate);
-route.post("/brand/create", uploadBrand.uploadBrand.single('logo-brand'), brandController.processCreateBrand);
+route.post("/brand/create", upload.uploadBrand.single('logo-brand'), brandController.processCreateBrand);
 route.get("/brand/edit/:id", brandController.getIndexEdit);
 route.post("/brand/edit/:id", brandController.proessEditBrand);
 route.get("/brand/delete/:id", brandController.deleteBrand);
@@ -34,7 +35,7 @@ route.get("/menu/delete/:id", menuController.deleteMenu);
 //slider route
 route.get("/slider", sliderController.getIndex);
 route.get("/slider/create", sliderController.getIndexCreateSlider);
-route.post("/slider/create", uploadBrand.uploadSlider.single('logo-slider'), sliderController.processCreateSlider);
+route.post("/slider/create", upload.uploadSlider.single('logo-slider'), sliderController.processCreateSlider);
 route.get("/slider/delete/:id", sliderController.deleteSlider);
 
 //role route
@@ -56,7 +57,7 @@ route.get("/user/delete/:id", userController.processDelete);
 //product route
 route.get("/product", productController.getIndex);
 route.get("/product/create", productController.getIndexCreate);
-route.post("/product/create", uploadBrand.uploadProduct.single("logo-product"), productController.processCreate);
+route.post("/product/create", upload.uploadProduct.single("logo-product"), productController.processCreate);
 route.get("/product/edit/:id", productController.getIndexEdit);
 route.post("/product/edit/:id", productController.processEdit);
 route.get("/product/delete/:id", productController.processDelete);
@@ -65,6 +66,12 @@ route.get("/product/delete/:id", productController.processDelete);
 route.get("/order", orderController.getIndex);
 route.get("/order/edit/:id", orderController.getIndexEdit);
 route.post("/order/edit/:id", orderController.proccesEditOrder);
+
+//ckeditor
+route.get("/browser", ckeditorController.getIndexUpload);
+route.post("/upload", upload.uploadCkeditor.single('uploadfile'), ckeditorController.processUpload);
+route.get("/delete", ckeditorController.deleteImg);
+
 
 
 module.exports = route;
