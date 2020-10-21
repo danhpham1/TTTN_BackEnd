@@ -9,7 +9,6 @@ module.exports.getIndex = async (req, res) => {
     let productList = await (await ProductModel.find()).reverse();
     let perpage = 5;
     let totalPage = Math.ceil(productList.length / perpage);
-    console.log(totalPage);
     let currentPage = req.query.page || 1;
     let start = (currentPage - 1) * perpage;
     let end = (currentPage) * perpage;

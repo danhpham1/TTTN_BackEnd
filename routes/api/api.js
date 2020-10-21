@@ -13,6 +13,8 @@ const userApiController = require('../../controllers/api/user');
 const productApiController = require('../../controllers/api/product');
 const orderApiController = require('../../controllers/api/order');
 const searchApiController = require("../../controllers/api/search");
+const checkTokenController = require('../../controllers/api/checktoken');
+const postApiController = require("../../controllers/api/post");
 
 //brand
 route.get('/brand', brandApiController.getAllBrand);
@@ -42,5 +44,13 @@ route.post('/user/login', userApiController.login);
 
 //search
 route.get('/search', searchApiController.processSearchProduct);
+
+//check token expired
+route.get('/checktoken/:token', checkTokenController.checkTokenExpired);
+
+//post
+route.get('/posts', postApiController.getAllPost);
+route.get('/post/:id', postApiController.getPostById);
+
 
 module.exports = route;

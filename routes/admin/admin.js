@@ -12,6 +12,7 @@ const roleController = require("../../controllers/role");
 const userController = require("../../controllers/user");
 const productController = require("../../controllers/product");
 const orderController = require("../../controllers/order");
+const postController = require("../../controllers/post");
 const ckeditorController = require("../../controllers/ckeditor");
 
 route.get("/index", adminController.getIndex);
@@ -66,6 +67,14 @@ route.get("/product/delete/:id", productController.processDelete);
 route.get("/order", orderController.getIndex);
 route.get("/order/edit/:id", orderController.getIndexEdit);
 route.post("/order/edit/:id", orderController.proccesEditOrder);
+
+//post rouet
+route.get("/post", postController.getIndex);
+route.get('/post/create', postController.getIndexCreate);
+route.post("/post/create", upload.uploadPostLogo.single('logo-post'), postController.processcreatePost);
+route.get("/post/edit/:id", postController.getEditPost);
+route.post("/post/edit/:id", postController.processEditPost);
+route.get("/post/delete/:id", postController.processDelete);
 
 //ckeditor
 route.get("/browser", ckeditorController.getIndexUpload);

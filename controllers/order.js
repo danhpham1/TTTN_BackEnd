@@ -3,11 +3,18 @@ const OrderModel = require("../models/order");
 
 module.exports.getIndex = async (req, res) => {
     let main = 'order/index';
-    let orderList = await OrderModel.find();
+    let orderList = await (await OrderModel.find()).reverse();
+    let perpage = 5;
+    let totalPage = Math.ceil(orderList.length / perpage);
+    let currentPage = req.query.page || 1;
+    let start = (currentPage - 1) * perpage;
+    let end = (currentPage) * perpage;
     res.render('index', {
         main: main,
         user: req.session.userInfo,
-        orderList: orderList
+        orderList: orderList.slice(start, end),
+        totalPage: totalPage,
+        currentPage: currentPage,
     })
 }
 

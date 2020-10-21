@@ -1,0 +1,39 @@
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title d-inline">Post</h4>
+            <a href="/admin/post/create" class="btn btn-gradient-success btn-fw float-right">Add Post</a>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:5%"> Id </th>
+                        <th style="width:30%"> Title </th>
+                        <th style="width:10%"> Date Create </th>
+                        <th style="width:25%"> Content Sub </th>
+                        <th style="width:15%"> Creator </th>
+                        <th style="width:5%"> IsHide </th>
+                        <th style="width:10%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% postList.forEach((el,index) => { %>
+                    <tr>
+                        <td style="width:5%"><%= index + 1 %></td>
+                        <td style="width:30%"><%= el.title %></td>
+                        <td style="width:10%"><%= el.dateCreate.toDateString() %></td>
+                        <td style="width:25%"><%= el.contentSub.substr(0,100) %>đ</td>
+                        <td style="width:15%"><%= el.creator %></td>
+                        <td style="width:5%"><%= el.isHide %></td>
+                        <td style="width:10%">
+                            <a href="/admin/post/edit/<%= el._id %>" class="btn btn-gradient-info btn-md">Edit</a>
+                            <a href="/admin/post/delete/<%= el._id %>?fileName=<%= el.logo %>"
+                                class="btn btn-gradient-danger btn-md">Delete</a>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
