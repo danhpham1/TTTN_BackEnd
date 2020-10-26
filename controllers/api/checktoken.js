@@ -4,10 +4,12 @@ module.exports.checkTokenExpired = async (req, res) => {
     let token = req.params.token;
     if (token) {
         try {
-            res.status(200).json({
-                isTokenExpired: true,
-                message: 'token has not expired'
-            })
+            if (jwtHelper.jwtHelp.verifyJWT(token)) {
+                res.status(200).json({
+                    isTokenExpired: true,
+                    message: 'token has not expired'
+                })
+            }
         } catch (error) {
             res.status(200).json({
                 isTokenExpired: false,
@@ -17,7 +19,7 @@ module.exports.checkTokenExpired = async (req, res) => {
         }
     } else {
         res.status(500).json({
-            success: false,
+            isTokenExpired: false,
             message: 'Please give params with token'
         })
     }
