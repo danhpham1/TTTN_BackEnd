@@ -21,6 +21,7 @@
                 <div class="form-group">
                     <label for="name">Status</label>
                     <select class="form-control" id="state" name="state">
+                        <option value="-1" <% if(order.state == -1){ %> <%= 'selected' %> <% } %>>CANCEL</option>
                         <option value="0" <% if(order.state == 0){ %> <%= 'selected' %> <% } %>>ON HOLD</option>
                         <option value="1" <% if(order.state == 1){ %> <%= 'selected' %> <% } %>>PROGRESS</option>
                         <option value="2" <% if(order.state == 2){ %> <%= 'selected' %> <% } %>>DONE</option>

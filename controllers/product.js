@@ -61,7 +61,8 @@ module.exports.processCreate = async (req, res) => {
             warrantyPolicy: req.body.warrantypolicy,
             creator: req.session.userInfo.name,
             isHide: (req.body.isHide) ? true : false,
-            logo: nameFile
+            logo: nameFile,
+            amount:req.body.amount
         });
         await product.save();
         res.redirect("/admin/product");
@@ -116,7 +117,8 @@ module.exports.processEdit = async (req, res) => {
                     describe: describe,
                     warrantyPolicy: req.body.warrantypolicy,
                     creator: req.session.userInfo.name,
-                    isHide: (req.body.isHide) ? true : false
+                    isHide: (req.body.isHide) ? true : false,
+                    amount:req.body.amount
                 }
             }
         )

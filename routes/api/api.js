@@ -37,6 +37,7 @@ route.get('/product/:id', productApiController.processGetProductDetail);
 route.get('/order/:username', checkTokenMiddleware.checkToken, orderApiController.getOrderWithIdUser);
 route.get('/order/detail/:id', checkTokenMiddleware.checkToken, orderApiController.getOrderDetail);
 route.post('/order', checkTokenMiddleware.checkToken, orderApiController.processPostOrder);
+route.patch('/order',checkTokenMiddleware.checkToken,orderApiController.cancelOrder);
 
 //user
 route.post('/user/register', userApiController.processCreateUser);

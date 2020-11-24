@@ -47,6 +47,10 @@ const ProductSchema = new mongoose.Schema({
     logo: {
         type: String,
     },
+    amount:{
+        type:String,
+        required:true
+    }
 })
 
 module.exports = mongoose.model("products", ProductSchema);

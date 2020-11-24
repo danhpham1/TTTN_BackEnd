@@ -1,4 +1,5 @@
 const OrderModel = require('../../models/order');
+const ProductModel = require('../../models/product');
 
 function isEmpty(obj) {
     for (var key in obj) {
@@ -55,6 +56,14 @@ module.exports.getOrderDetail = async (req, res) => {
 
 module.exports.processPostOrder = async (req, res) => {
     try {
+        req.body.items.forEach( async (element) => {
+            await ProductModel.aggregate(
+                [
+                    {$match:{_id:element.idProduct}},
+                    {$set:{amount:{$subtract:["amount",`${element.amout}`]}}}
+                ]
+            )
+        });
         let order = new OrderModel({
             username: req.body.username,
             phone: req.body.phone,
@@ -69,6 +78,31 @@ module.exports.processPostOrder = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "add order success"
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error
+        })
+    }
+}
+
+module.exports.cancelOrder = async (req, res) => {
+    try {
+        OrderModel.findByIdAndUpdate(req.body.id,
+            {
+                $set:{
+                    state:-1
+                },
+            }
+        ,
+            {
+                new:true
+            }
+        )
+        res.status(200).json({
+            success: true,
+            message: "cancel order success"
         })
     } catch (error) {
         res.status(500).json({

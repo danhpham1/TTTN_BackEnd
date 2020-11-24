@@ -100,6 +100,11 @@
                 </div>
                 <textarea name="warrantypolicy" id="warrantyPolicy" cols="100"
                     rows="10"><%- product.warrantyPolicy%></textarea>
+                <div class="form-group">
+                        <label for="exampleInputName1">Số lượng</label>
+                        <input required min="0" name="amount" id="amount" type="number" class="form-control"
+                            placeholder="Title" value="<%= product.amount %>">
+                </div>
                 <div class="form-check form-check-flat form-check-primary">
                     <label class="form-check-label">
                         <input <% if(product.isHide){ %> <%= 'checked' %> <% } %> type="checkbox" name="isHide"
