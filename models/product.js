@@ -47,9 +47,9 @@ const ProductSchema = new mongoose.Schema({
     logo: {
         type: String,
     },
-    amount:{
-        type:String,
-        required:true
+    amount: {
+        type: Number,
+        required: true
     }
 })
 

@@ -1,5 +1,6 @@
 const OrderModel = require('../../models/order');
 const ProductModel = require('../../models/product');
+const mongoose = require('mongoose');
 
 function isEmpty(obj) {
     for (var key in obj) {
@@ -56,13 +57,15 @@ module.exports.getOrderDetail = async (req, res) => {
 
 module.exports.processPostOrder = async (req, res) => {
     try {
-        req.body.items.forEach( async (element) => {
-            await ProductModel.aggregate(
-                [
-                    {$match:{_id:element.idProduct}},
-                    {$set:{amount:{$subtract:["amount",`${element.amout}`]}}}
-                ]
-            )
+        req.body.items.forEach(async (element) => {
+            let product = await ProductModel.findById(element.idProduct);
+            if (product) {
+                await ProductModel.findByIdAndUpdate(
+                    product._id,
+                    { $set: { amount: ((+product.amount) - (+element.amout)) } },
+                    { new: true }
+                )
+            }
         });
         let order = new OrderModel({
             username: req.body.username,
@@ -91,13 +94,13 @@ module.exports.cancelOrder = async (req, res) => {
     try {
         OrderModel.findByIdAndUpdate(req.body.id,
             {
-                $set:{
-                    state:-1
+                $set: {
+                    state: -1
                 },
             }
-        ,
+            ,
             {
-                new:true
+                new: true
             }
         )
         res.status(200).json({
