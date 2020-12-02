@@ -92,7 +92,8 @@ module.exports.processPostOrder = async (req, res) => {
 
 module.exports.cancelOrder = async (req, res) => {
     try {
-        OrderModel.findByIdAndUpdate(req.body.id,
+
+        await OrderModel.findByIdAndUpdate(req.body.id,
             {
                 $set: {
                     state: -1
