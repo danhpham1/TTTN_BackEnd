@@ -15,6 +15,7 @@ const orderApiController = require('../../controllers/api/order');
 const searchApiController = require("../../controllers/api/search");
 const checkTokenController = require('../../controllers/api/checktoken');
 const postApiController = require("../../controllers/api/post");
+const commentApiController = require("../../controllers/api/comment");
 
 //brand
 route.get('/brand', brandApiController.getAllBrand);
@@ -52,6 +53,10 @@ route.get('/checktoken/:token', checkTokenController.checkTokenExpired);
 //post
 route.get('/posts', postApiController.getAllPost);
 route.get('/post/:id', postApiController.getPostById);
+
+//comment
+route.get('/comments/:id',commentApiController.getComments);
+route.post('/comments',checkTokenMiddleware.checkToken,commentApiController.postComment);
 
 
 module.exports = route;
